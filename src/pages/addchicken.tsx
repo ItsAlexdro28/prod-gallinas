@@ -60,7 +60,7 @@ export default function Addchicken() {
                     name="identificacion"
                     value={formData.identificacion}
                     onChange={handleInputChange}
-                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500"
+                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
                 </div>
                 <div>
@@ -71,7 +71,7 @@ export default function Addchicken() {
                     type="number"
                     value={formData.edad}
                     onChange={handleInputChange}
-                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500"
+                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
                 </div>
                 <div>
@@ -81,7 +81,7 @@ export default function Addchicken() {
                     name="raza"
                     value={formData.raza}
                     onChange={handleInputChange}
-                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500"
+                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
                 </div>
                 <div>
@@ -92,7 +92,7 @@ export default function Addchicken() {
                     type="date"
                     value={formData.fechaIngreso}
                     onChange={handleInputChange}
-                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500"
+                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
                 </div>
                 <div>
@@ -104,7 +104,7 @@ export default function Addchicken() {
                     step="0.01"
                     value={formData.precio}
                     onChange={handleInputChange}
-                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500"
+                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
                 </div>
                 <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white">

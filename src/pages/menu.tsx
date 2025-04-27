@@ -57,9 +57,11 @@ export default function Menu() {
       </nav>
       <main className="container mx-auto mt-8 p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Button className="h-32 text-xl text-white bg-green-600 hover:bg-green-700">
-            Registrar Gallina
-          </Button>
+    		  <Button className="h-32 text-xl text-white bg-green-600 hover:bg-green-700">
+						<a href="/add-chicken" className="text-white">
+								Registrar Gallina
+						</a>
+    		  </Button>
           <Button className="h-32 text-xl text-white bg-green-600 hover:bg-green-700">
             Registrar Producción
           </Button>
