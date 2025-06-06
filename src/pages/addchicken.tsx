@@ -2,25 +2,55 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useChickens } from "../hooks/useChickens"  // adjust relative path as needed
+import { Chicken } from "../services/chickenService"
 
-export default function Addchicken() {
+export default function AddChicken() {
+  const { handlerAddChicken } = useChickens()
+
   const [formData, setFormData] = useState({
-    identificacion: "",
-    edad: "",
-    raza: "",
-    fechaIngreso: "",
-    precio: ""
+    id: 0,
+    nombre: "",
+    fechaNacimiento: "",
+    estado: "",
+	grupoId: "",
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+	if (name === "grupo") {
+ 	  setFormData(prev => ({ ...prev, grupo: { id: Number(value) } }));
+ 	} else {
+ 	  setFormData(prev => ({ ...prev, [name]: value }));
+ 	}
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Datos de la nueva gallina:", formData)
-    // Aquí iría la lógica para enviar los datos al servidor
+
+  const fechaNacimientoTimestamp = formData.fechaNacimiento
+    ? new Date(formData.fechaNacimiento).getTime()
+    : null;
+
+    // Map form data to Chicken type
+    const newChicken: Chicken = {
+      id: formData.id,
+      nombre: formData.nombre,
+      fechaNacimiento: fechaNacimientoTimestamp,
+      estado: formData.estado,
+      grupo: { id: Number(formData.grupoId) },
+    }
+
+    await handlerAddChicken(newChicken)
+
+    // Reset form after saving
+    setFormData({
+      id: 0,
+      nombre: "",
+      fechaNacimiento: "",
+      estado: "",
+	  grupoId: "",
+    })
   }
 
   return (
@@ -54,55 +84,43 @@ export default function Addchicken() {
             <div className="md:w-1/2 p-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <Label htmlFor="identificacion" className="text-green-800">Identificación</Label>
+                  <Label htmlFor="nombre" className="text-green-800">Nombre</Label>
                   <Input
-                    id="identificacion"
-                    name="identificacion"
-                    value={formData.identificacion}
+                    id="nombre"
+                    name="nombre"
+                    value={formData.nombre}
                     onChange={handleInputChange}
                     className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="edad" className="text-green-800">Edad (días)</Label>
+                  <Label htmlFor="fechaNacimiento" className="text-green-800">Fecha de Nacimiento</Label>
                   <Input
-                    id="edad"
-                    name="edad"
-                    type="number"
-                    value={formData.edad}
-                    onChange={handleInputChange}
-                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="raza" className="text-green-800">Raza</Label>
-                  <Input
-                    id="raza"
-                    name="raza"
-                    value={formData.raza}
-                    onChange={handleInputChange}
-                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="fechaIngreso" className="text-green-800">Fecha ingreso</Label>
-                  <Input
-                    id="fechaIngreso"
-                    name="fechaIngreso"
+                    id="fechaNacimiento"
+                    name="fechaNacimiento"
                     type="date"
-                    value={formData.fechaIngreso}
+                    value={formData.fechaNacimiento}
                     onChange={handleInputChange}
                     className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="precio" className="text-green-800">Precio</Label>
+                  <Label htmlFor="estado" className="text-green-800">Estado</Label>
                   <Input
-                    id="precio"
-                    name="precio"
-                    type="number"
-                    step="0.01"
-                    value={formData.precio}
+                    id="estado"
+                    name="estado"
+                    value={formData.estado}
+                    onChange={handleInputChange}
+                    className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="grupo" className="text-green-800">Grupo</Label>
+                  <Input
+                    id="grupoId"
+                    name="grupoId"
+                    value={formData.grupoId}
+					type="number"
                     onChange={handleInputChange}
                     className="w-full border-green-300 focus:border-green-500 focus:ring-green-500 text-black"
                   />
