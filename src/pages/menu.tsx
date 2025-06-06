@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useContext } from "react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -9,9 +9,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown, User, LogOut, Settings } from "lucide-react"
+import { AuthContext } from "../auth/context/AuthContext";
+
 
 export default function Menu() {
   const [userName, setUserName] = useState("Juan") 
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    // Context not available yet — you can return null or a fallback UI
+    return null;
+  }
+
+  const { login, handlerLogout } = authContext;
 
   return (
     <div className="min-h-screen w-full bg-green-100">
@@ -35,7 +45,7 @@ export default function Menu() {
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-white">
+              <DropdownMenuContent className="w-56 bg-green-800">
                 <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
@@ -46,9 +56,9 @@ export default function Menu() {
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Configuración</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handlerLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Cerrar Sesión</span>
+                  <span >Cerrar Sesión</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

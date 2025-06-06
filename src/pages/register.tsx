@@ -82,7 +82,7 @@ export default function Register() {
               name="nombre"
               placeholder="Ingresa tu nombre"
               required
-              className={`w-full border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.nombre ? 'border-red-500' : ''}`}
+              className={`w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.nombre ? 'border-red-500' : ''}`}
               value={formData.nombre}
               onChange={handleInputChange}
             />
@@ -97,7 +97,7 @@ export default function Register() {
               name="apellidos"
               placeholder="Ingresa tus apellidos"
               required
-              className={`w-full border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.apellidos ? 'border-red-500' : ''}`}
+              className={`w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.apellidos ? 'border-red-500' : ''}`}
               value={formData.apellidos}
               onChange={handleInputChange}
             />
@@ -112,7 +112,7 @@ export default function Register() {
               name="cedula"
               placeholder="Ingresa tu cedula"
               required
-              className={`w-full border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.cedula ? 'border-red-500' : ''}`}
+              className={`w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.cedula ? 'border-red-500' : ''}`}
               value={formData.cedula}
               onChange={handleInputChange}
             />
@@ -127,7 +127,7 @@ export default function Register() {
               name="fechaNacimiento"
               type="date"
               required
-              className={`w-full border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.fechaNacimiento ? 'border-red-500' : ''}`}
+              className={`w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.fechaNacimiento ? 'border-red-500' : ''}`}
               value={formData.fechaNacimiento}
               onChange={handleInputChange}
             />
@@ -143,7 +143,7 @@ export default function Register() {
               type="email"
               placeholder="Ingresa tu correo electrónico"
               required
-              className={`w-full border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.email ? 'border-red-500' : ''}`}
+              className={`w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.email ? 'border-red-500' : ''}`}
               value={formData.email}
               onChange={handleInputChange}
             />
@@ -160,7 +160,7 @@ export default function Register() {
                 placeholder="Ingresa tu contraseña"
                 type={showPassword ? "text" : "password"}
                 required
-                className={`w-full border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.password ? 'border-red-500' : ''}`}
+                className={`w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500 ${errors.password ? 'border-red-500' : ''}`}
                 value={formData.password}
                 onChange={handleInputChange}
               />

@@ -1,11 +1,60 @@
-import { useState } from "react"
+import { useState, useContext, ChangeEvent, FormEvent } from "react"
 import { Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthContext";
 
-export default function Login() {
-  const [showPassword, setShowPassword] = useState(false)
+interface LoginForm {
+email: string;
+password: string;
+}
+
+const initialLoginForm = {
+    email: '',
+    password: '',
+}
+
+export default function LoginPage() {
+  const [showPassword, setShowPassword ]= useState<Boolean>(false);
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  if (!authContext) {
+    // Handle the case where context is null (optional)
+    return null;
+  }
+
+  const { handlerLogin } = authContext;
+  const [loginForm, setLoginForm] = useState<LoginForm>(initialLoginForm);
+  const { email, password } = loginForm;
+
+  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setLoginForm({
+      ...loginForm,
+      [name]: value,
+    });
+  };
+
+  console.log("LoginPage rendered");
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!email || !password) {
+      Swal.fire("Error de validacion", "Username y password requeridos SENA", "error");
+      return;
+    }
+
+	console.log("Logging in with:", email, password); // ✅ Confirm this is triggered
+
+    // Implement login
+    handlerLogin({ email, password });
+
+    setLoginForm(initialLoginForm);
+  };
 
   return (
     <div className="min-h-screen bg-green-100 flex items-center justify-center p-4">
@@ -14,15 +63,18 @@ export default function Login() {
           <h1 className="text-2xl font-bold">Produccion de la granja Tarazona</h1>
           <p className="text-green-100">Monitorea eficientemente</p>
         </div>
-        <form className="p-6 space-y-6">
+        <form className="p-6 space-y-6" onSubmit={onSubmit}>
           <div className="space-y-2">
             <Label htmlFor="email" className="text-green-800">Correo</Label>
             <Input
               id="email"
               placeholder="Ingresa tu correo"
               type="email"
+			  name="email"
               required
-              className="w-full border-green-300 focus:border-green-500 focus:ring-green-500"
+              className="w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500"
+			  value={email}
+		      onChange={ onInputChange }
             />
           </div>
           <div className="space-y-2">
@@ -32,8 +84,11 @@ export default function Login() {
                 id="password"
                 placeholder="Ingresa tu contraseña"
                 type={showPassword ? "text" : "password"}
+				name="password"
                 required
-                className="w-full border-green-300 focus:border-green-500 focus:ring-green-500"
+                className="w-full text-black border-green-300 focus:border-green-500 focus:ring-green-500"
+				value={password}
+				onChange={ onInputChange }
               />
               <button
                 type="button"
